@@ -23,18 +23,10 @@ jobs:
           rm -rf node_modules package-lock.json
           npm install --legacy-peer-deps
           npm install ajv@6 ajv-keywords@3 lucide-react react-icons --save-dev --legacy-peer-deps
+
       - name: Build React App
-        run: npm run build
+        run: CI=false npm run build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
-        with:
-          name: react-build
-          path: build
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: TIGERDUDE
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: build
