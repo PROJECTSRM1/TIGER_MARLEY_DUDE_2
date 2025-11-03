@@ -206,12 +206,20 @@ const Navbar = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
 
-              <a href="#" className="forgot-password">
+              <button
+                type="button"
+                className="forgot-password"
+                onClick={() => alert("Redirect to forgot password page")}
+              >
                 Forgot your password?
-              </a>
+              </button>
 
-              <button type="submit" className="login-btn">
-                Sign In
+              <button
+                type="button"
+                className="new-account"
+                onClick={() => alert("Redirect to signup page")}
+              >
+                New customer? Create your account
               </button>
 
               <a href="#" className="new-account">
