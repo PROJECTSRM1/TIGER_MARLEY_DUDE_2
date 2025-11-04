@@ -40,7 +40,6 @@ const UserShowcase = () => {
     }
   };
 
-  // Toggle accordion
   const toggleAccordion = (id) => {
     setActiveAccordion(activeAccordion === id ? null : id);
   };
@@ -71,7 +70,7 @@ const UserShowcase = () => {
         </button>
       </div>
 
-      {/* Footer */}
+      
       <footer className="footer">
         <div className="footer-columns">
           <div className="footer-col">
@@ -80,7 +79,7 @@ const UserShowcase = () => {
               🇮🇳 15-2, RM1 Codershub Software Solutions, Hyderabad, Gachibowli,
               Vasavi Sky City Building, TN IND
             </p>
-            {/* <p>🇺🇸 10 Schalks Crossing Rd, Plainsboro, NJ USA</p> */}
+          
             <p className="email">
               Email:{" "}
               <a href="mailto:care@rm1codershub.com">care@rm1codershub.com</a>
@@ -139,7 +138,7 @@ const UserShowcase = () => {
         </div>
 
         <div className="footer-bottom">
-          {/* Accordion */}
+    
           <div
             className="accordion-item"
             onClick={() => toggleAccordion("navlinks")}

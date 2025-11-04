@@ -1,11 +1,8 @@
-/* 🎯 === Features Section === */
 .features-section {
   text-align: center;
   padding: 30px 0;
   background: #fff;
 }
-
-/* 🏷️ Title */
 .features-title {
   font-size: 22px;
   font-weight: 700;
@@ -13,8 +10,6 @@
   color: #222;
   position: relative;
 }
-
-/* 🧩 Grid Layout */
 .features-grid {
   display: flex;
   flex-wrap: wrap;
@@ -22,8 +17,6 @@
   gap: 40px;
   transition: all 0.5s ease;
 }
-
-/* 💎 Feature Cards */
 .feature-card img {
   width: 200px;
   height: auto;
@@ -34,10 +27,6 @@
 .feature-card img:hover {
   transform: scale(1.1);
 }
-
-/* 📱 Responsive Styles */
-
-/* Tablets and small laptops */
 @media (max-width: 992px) {
   .features-title {
     font-size: 20px;
@@ -51,8 +40,6 @@
     width: 160px;
   }
 }
-
-/* Mobile screens */
 @media (max-width: 600px) {
   .features-section {
     padding: 20px 10px;

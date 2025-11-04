@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./BannerImage.css";
-import bannerImage from "../../assets/banner.jpg"; // ✅ correct path
+import bannerImage from "../../assets/banner.jpg"; 
 
 const BannerImage = () => {
   const navigate = useNavigate(); 
@@ -22,7 +22,6 @@ const BannerImage = () => {
           FOOTBALL ⚽
         </button>
 
-        {/* ✅ Navigate to Motorsports page */}
         <button
           className="banner-btn motorsports-btn"
           onClick={() => navigate("/motorsports")}

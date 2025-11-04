@@ -29,10 +29,6 @@
   padding: 0 20px;
   line-height: 1.6;
 }
-
-/* ✅ Responsive Styles */
-
-/* --- Medium Devices (Tablets) --- */
 @media (max-width: 992px) {
   .limited-edition-container {
     padding: 25px 0;
@@ -50,8 +46,6 @@
     font-size: 15px;
   }
 }
-
-/* --- Small Devices (Mobiles) --- */
 @media (max-width: 600px) {
   .limited-edition-container {
     margin-top: 25px;

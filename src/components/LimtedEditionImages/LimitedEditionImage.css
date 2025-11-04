@@ -7,7 +7,6 @@
   background-color: #fff;
 }
 
-/* GRID CONTAINER */
 .limited-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

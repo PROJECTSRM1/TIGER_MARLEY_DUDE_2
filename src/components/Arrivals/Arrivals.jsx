@@ -1,45 +1,361 @@
-import React, { useRef } from "react";
+// import React from "react";
+// import { useNavigate } from "react-router-dom";
+// import "./ArrivalsPage.css";
+
+// const Arrivals = () => {
+//   const navigate = useNavigate();
+
+//   const products = [
+//     {
+//       id: 1,
+//       name: "Ronaldo Siuuuuu Hoodie",
+//       oldPrice: "₹1,499",
+//       newPrice: "₹1,099",
+//       image: require("../../assets/arrival_images/hoodie1.jpg"),
+//       description:
+//         "Celebrate the legend with this premium Ronaldo Siuuuuu hoodie — soft cotton blend with athletic fit.",
+//     },
+//     {
+//       id: 2,
+//       name: "Red Devils Half Sleeve Tee",
+//       oldPrice: "₹899",
+//       newPrice: "₹599",
+//       image: require("../../assets/arrival_images/hoodie2.jpg"),
+//       description:
+//         "Classic Red Devils tee designed for die-hard fans. Lightweight, breathable, and stylish.",
+//     },
+//     {
+//       id: 3,
+//       name: "Arsenal Half Sleeve Tee",
+//       oldPrice: "₹899",
+//       newPrice: "₹599",
+//       image: require("../../assets/arrival_images/hoodie3.jpg"),
+//       description:
+//         "Bold Arsenal-inspired tee for Gunners fans. Durable fabric with sleek print design.",
+//     },
+//     {
+//       id: 4,
+//       name: "FCB Back To Football Tee",
+//       oldPrice: "₹899",
+//       newPrice: "₹599",
+//       image: require("../../assets/arrival_images/hoodie4.jpg"),
+//       description:
+//         "Return to the field with the FCB Back To Football tee. Perfect fit for true Barca supporters.",
+//     },
+//     {
+//       id: 5,
+//       name: "Chelsea Blue Pride Tee",
+//       oldPrice: "₹999",
+//       newPrice: "₹699",
+//       image: require("../../assets/arrival_images/hoodie5.jpg"),
+//       description:
+//         "Show your pride with the Chelsea Blue tee. Premium cotton comfort for everyday wear.",
+//     },
+//     {
+//       id: 6,
+//       name: "Real Madrid Spirit Hoodie",
+//       oldPrice: "₹1,599",
+//       newPrice: "₹1,199",
+//       image: require("../../assets/arrival_images/hoodie6.jpg"),
+//       description:
+//         "Elegant white Real Madrid hoodie for true fans. Smooth fabric and clean design.",
+//     },
+//     {
+//       id: 7,
+//       name: "Liverpool Anfield Red Tee",
+//       oldPrice: "₹899",
+//       newPrice: "₹599",
+//       image: require("../../assets/arrival_images/hoodie7.jpg"),
+//       description:
+//         "Walk on with Liverpool pride in this Anfield Red tee. Designed for comfort and legacy.",
+//     },
+//     {
+//       id: 8,
+//       name: "Man City Champions Hoodie",
+//       oldPrice: "₹1,499",
+//       newPrice: "₹1,099",
+//       image: require("../../assets/arrival_images/hoodie8.jpg"),
+//       description:
+//         "Celebrate champions with this City hoodie — light, soft, and beautifully detailed.",
+//     },
+//     {
+//       id: 9,
+//       name: "PSG Messi Edition Hoodie",
+//       oldPrice: "₹1,599",
+//       newPrice: "₹1,199",
+//       image: require("../../assets/arrival_images/hoodie9.jpg"),
+//       description:
+//         "Iconic PSG Messi Edition hoodie with bold graphics and sleek streetwear look.",
+//     },
+//     {
+//       id: 10,
+//       name: "Juventus Black & White Tee",
+//       oldPrice: "₹999",
+//       newPrice: "₹699",
+//       image: require("../../assets/arrival_images/hoodie10.jpg"),
+//       description:
+//         "Classic Juventus-inspired tee with signature black and white stripes.",
+//     },
+//     {
+//       id: 11,
+//       name: "Bayern Munich Red Flame Hoodie",
+//       oldPrice: "₹1,799",
+//       newPrice: "₹1,299",
+//       image: require("../../assets/arrival_images/hoodie11.jpg"),
+//       description:
+//         "Unleash your passion with this fiery Bayern hoodie — comfort meets performance.",
+//     },
+//     {
+//       id: 12,
+//       name: "Inter Milan Classic Blue Tee",
+//       oldPrice: "₹899",
+//       newPrice: "₹599",
+//       image: require("../../assets/arrival_images/hoodie12.jpg"),
+//       description:
+//         "Inspired by Inter Milan’s legacy — stylish, soft, and ready for match days.",
+//     },
+//     {
+//       id: 13,
+//       name: "Tottenham White Edition Tee",
+//       oldPrice: "₹899",
+//       newPrice: "₹599",
+//       image: require("../../assets/arrival_images/hoodie13.jpg"),
+//       description:
+//         "Minimalist Tottenham tee that pairs perfectly with your casual outfits.",
+//     },
+//     {
+//       id: 14,
+//       name: "AC Milan Heritage Hoodie",
+//       oldPrice: "₹1,499",
+//       newPrice: "₹1,099",
+//       image: require("../../assets/arrival_images/hoodie14.jpg"),
+//       description:
+//         "AC Milan heritage design hoodie — premium feel with traditional red-black touch.",
+//     },
+//     {
+//       id: 15,
+//       name: "Napoli Spirit Tee",
+//       oldPrice: "₹899",
+//       newPrice: "₹599",
+//       image: require("../../assets/arrival_images/hoodie15.jpg"),
+//       description:
+//         "Inspired by Napoli’s vibrant energy — light, breathable, and effortlessly cool.",
+//     },
+//     {
+//       id: 16,
+//       name: "Atletico Madrid Street Hoodie",
+//       oldPrice: "₹1,499",
+//       newPrice: "₹1,099",
+//       image: require("../../assets/arrival_images/hoodie16.jpg"),
+//       description:
+//         "Atletico Madrid streetwear hoodie with a bold fan-first design.",
+//     },
+//   ];
+
+//   return (
+//     <div className="arrival-edition-container">
+//       <h2 className="arrival-title">New Arrivals</h2>
+//       <div className="red-underline"></div>
+//       <p className="arrival-text">
+//         <em>Epic Themes Await: Streetwear Oversized Tees Here!</em>
+//       </p>
+
+//       <div className="arrival-grid">
+//         {products.map((item) => (
+//           <div
+//             key={item.id}
+//             className="arrival-card"
+//             onClick={() => navigate(`/product/${item.id}`, { state: item })}
+//           >
+//             <div className="image-container">
+//               <img src={item.image} alt={item.name} />
+//             </div>
+
+//             <h3 className="product-name">{item.name}</h3>
+
+//             <div className="price-row">
+//               <span className="old-price">{item.oldPrice}</span>
+//               <span className="new-price">{item.newPrice}</span>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Arrivals;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ArrivalsPage.css";
 
 const Arrivals = () => {
-  const carouselRef = useRef(null);
+  const navigate = useNavigate();
 
-const products = [
-  { id: 1, name: "Ronaldo Siuuuuu Hoodie", price: "₹1,099", image: require("../../assets/arrival_images/hoodie1.jpg") },
-  { id: 2, name: "Red Devils Half Sleeve Tee", price: "₹599", image: require("../../assets/arrival_images/hoodie2.jpg") },
-  { id: 3, name: "Arsenal Half Sleeve Tee", price: "₹599", image: require("../../assets/arrival_images/hoodie3.jpg") },
-  { id: 4, name: "FCB Back To Football Tee", price: "₹599", image: require("../../assets/arrival_images/hoodie4.jpg") },
-  { id: 5, name: "Chelsea Blue Pride Tee", price: "₹699", image: require("../../assets/arrival_images/hoodie5.jpg") },
-  { id: 6, name: "Real Madrid Spirit Hoodie", price: "₹1,199", image: require("../../assets/arrival_images/hoodie6.jpg") },
-  { id: 7, name: "Liverpool Anfield Red Tee", price: "₹599", image: require("../../assets/arrival_images/hoodie7.jpg") },
-  { id: 8, name: "Man City Champions Hoodie", price: "₹1,099", image: require("../../assets/arrival_images/hoodie8.jpg") },
-  { id: 9, name: "PSG Messi Edition Hoodie", price: "₹1,199", image: require("../../assets/arrival_images/hoodie9.jpg") },
-  { id: 10, name: "Juventus Black & White Tee", price: "₹699", image: require("../../assets/arrival_images/hoodie10.jpg") },
-  { id: 11, name: "Bayern Munich Red Flame Hoodie", price: "₹1,299", image: require("../../assets/arrival_images/hoodie11.jpg") },
-  { id: 12, name: "Inter Milan Classic Blue Tee", price: "₹599", image: require("../../assets/arrival_images/hoodie12.jpg") },
-  { id: 13, name: "Tottenham White Edition Tee", price: "₹599", image: require("../../assets/arrival_images/hoodie13.jpg") },
-  { id: 14, name: "AC Milan Heritage Hoodie", price: "₹1,099", image: require("../../assets/arrival_images/hoodie14.jpg") },
-  { id: 15, name: "Napoli Spirit Tee", price: "₹599", image: require("../../assets/arrival_images/hoodie15.jpg") },
-  { id: 16, name: "Atletico Madrid Street Hoodie", price: "₹1,099", image: require("../../assets/arrival_images/hoodie16.jpg") },
-];
+  const products = [
+    {
+      id: 1,
+      name: "Ronaldo Siuuuuu Hoodie",
+      oldPrice: "₹1,499",
+      newPrice: "₹1,099",
+      image: require("../../assets/arrival_images/hoodie1.jpg"),
+    },
+    {
+      id: 2,
+      name: "Red Devils Half Sleeve Tee",
+      oldPrice: "₹899",
+      newPrice: "₹599",
+      image: require("../../assets/arrival_images/hoodie2.jpg"),
+    },
+    {
+      id: 3,
+      name: "Arsenal Half Sleeve Tee",
+      oldPrice: "₹899",
+      newPrice: "₹599",
+      image: require("../../assets/arrival_images/hoodie3.jpg"),
+    },
+    {
+      id: 4,
+      name: "FCB Back To Football Tee",
+      oldPrice: "₹899",
+      newPrice: "₹599",
+      image: require("../../assets/arrival_images/hoodie4.jpg"),
+    },
+    {
+      id: 5,
+      name: "Chelsea Blue Pride Tee",
+      oldPrice: "₹999",
+      newPrice: "₹699",
+      image: require("../../assets/arrival_images/hoodie5.jpg"),
+    },
+    {
+      id: 6,
+      name: "Real Madrid Spirit Hoodie",
+      oldPrice: "₹1,599",
+      newPrice: "₹1,199",
+      image: require("../../assets/arrival_images/hoodie6.jpg"),
+    },
+    {
+      id: 7,
+      name: "Liverpool Anfield Red Tee",
+      oldPrice: "₹899",
+      newPrice: "₹599",
+      image: require("../../assets/arrival_images/hoodie7.jpg"),
+    },
+    {
+      id: 8,
+      name: "Man City Champions Hoodie",
+      oldPrice: "₹1,499",
+      newPrice: "₹1,099",
+      image: require("../../assets/arrival_images/hoodie8.jpg"),
+    },
+    {
+      id: 9,
+      name: "PSG Messi Edition Hoodie",
+      oldPrice: "₹1,599",
+      newPrice: "₹1,199",
+      image: require("../../assets/arrival_images/hoodie9.jpg"),
+    },
+    {
+      id: 10,
+      name: "Juventus Black & White Tee",
+      oldPrice: "₹999",
+      newPrice: "₹699",
+      image: require("../../assets/arrival_images/hoodie10.jpg"),
+    },
+    {
+      id: 11,
+      name: "Bayern Munich Red Flame Hoodie",
+      oldPrice: "₹1,799",
+      newPrice: "₹1,299",
+      image: require("../../assets/arrival_images/hoodie11.jpg"),
+    },
+    {
+      id: 12,
+      name: "Inter Milan Classic Blue Tee",
+      oldPrice: "₹899",
+      newPrice: "₹599",
+      image: require("../../assets/arrival_images/hoodie12.jpg"),
+    },
+    {
+      id: 13,
+      name: "Tottenham White Edition Tee",
+      oldPrice: "₹899",
+      newPrice: "₹599",
+      image: require("../../assets/arrival_images/hoodie13.jpg"),
+    },
+    {
+      id: 14,
+      name: "AC Milan Heritage Hoodie",
+      oldPrice: "₹1,499",
+      newPrice: "₹1,099",
+      image: require("../../assets/arrival_images/hoodie14.jpg"),
+    },
+    {
+      id: 15,
+      name: "Napoli Spirit Tee",
+      oldPrice: "₹899",
+      newPrice: "₹599",
+      image: require("../../assets/arrival_images/hoodie15.jpg"),
+    },
+    {
+      id: 16,
+      name: "Atletico Madrid Street Hoodie",
+      oldPrice: "₹1,499",
+      newPrice: "₹1,099",
+      image: require("../../assets/arrival_images/hoodie16.jpg"),
+    },
+  ];
 
+  const [index, setIndex] = useState(0);
+  const visibleCount = 4;
 
-  const itemsPerSlide = 3;
-
-  const scrollLeft = () => {
-    const cardWidth = carouselRef.current.querySelector(".product-card").offsetWidth + 20; // 20px = gap
-    carouselRef.current.scrollBy({
-      left: -cardWidth * itemsPerSlide,
-      behavior: "smooth",
-    });
+  const nextSlide = () => {
+    if (index + visibleCount < products.length) {
+      setIndex(index + visibleCount);
+    }
   };
 
-  const scrollRight = () => {
-    const cardWidth = carouselRef.current.querySelector(".product-card").offsetWidth + 20;
-    carouselRef.current.scrollBy({
-      left: cardWidth * itemsPerSlide,
-      behavior: "smooth",
-    });
+  const prevSlide = () => {
+    if (index - visibleCount >= 0) {
+      setIndex(index - visibleCount);
+    }
   };
 
   return (
@@ -49,20 +365,38 @@ const products = [
       <p className="arrival-text">
         <em>Epic Themes Await: Streetwear Oversized Tees Here!</em>
       </p>
-      <div className="carousel-wrapper">
-        <button className="scroll-btn left" onClick={scrollLeft}>❮</button>
 
-        <div className="carousel" ref={carouselRef}>
-          {products.map((item) => (
-            <div className="product-card" key={item.id}>
-              <img src={item.image} alt={item.name} />
-              <h3>{item.name}</h3>
-              <p className="price">{item.price}</p>
+      <div className="arrival-carousel">
+        <button className="arrow left" onClick={prevSlide} disabled={index === 0}>
+          ❮
+        </button>
+
+        <div className="arrival-grid">
+          {products.slice(index, index + visibleCount).map((item) => (
+            <div
+              key={item.id}
+              className="arrival-card"
+              onClick={() => navigate(`/product/${item.id}`, { state: item })}
+            >
+              <div className="image-container">
+                <img src={item.image} alt={item.name} />
+              </div>
+              <h3 className="product-name">{item.name}</h3>
+              <div className="price-row">
+                <span className="old-price">{item.oldPrice}</span>
+                <span className="new-price">{item.newPrice}</span>
+              </div>
             </div>
           ))}
         </div>
 
-        <button className="scroll-btn right" onClick={scrollRight}>❯</button>
+        <button
+          className="arrow right"
+          onClick={nextSlide}
+          disabled={index + visibleCount >= products.length}
+        >
+          ❯
+        </button>
       </div>
     </div>
   );

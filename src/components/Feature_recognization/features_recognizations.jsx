@@ -34,7 +34,6 @@ const FeaturesRecognitions = () => {
       <h2 className="features-title">
         <span>FEATURES & RECOGNITIONS</span>
       </h2>
-
       <div className="features-grid fade">
         {displayFeatures.map((item) => (
           <div className="feature-card" key={item.id}>

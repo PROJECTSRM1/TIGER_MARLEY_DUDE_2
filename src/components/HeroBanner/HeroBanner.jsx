@@ -1,6 +1,5 @@
 import React from "react";
-import "./HeroBanner.css"; // using same css file
-
+import "./HeroBanner.css";
 const HeroBanner = () => {
   return (
     <div className="top-offer-bar">

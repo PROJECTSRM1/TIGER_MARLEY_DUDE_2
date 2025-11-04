@@ -41,7 +41,6 @@ const ProductCategories = () => {
       <div className="product-grid">
         {categories.map((cat, index) => (
           <div key={index} className="product-card">
-            {/* 🖼️ Image section (clickable) */}
             <div
               className="image-wrapper"
               onClick={() => navigate(cat.mainPath)}
@@ -50,14 +49,14 @@ const ProductCategories = () => {
               <h3 className="overlay-title">{cat.title}</h3>
             </div>
 
-            {/* 🔘 Button section (independent click) */}
+          
             <div className="button-row">
               {cat.buttons.map((btn, i) => (
                 <button
                   key={i}
                   className="category-btn"
                   onClick={(e) => {
-                    e.stopPropagation(); // 👈 Prevent image click from firing
+                    e.stopPropagation();
                     navigate(btn.path);
                   }}
                 >

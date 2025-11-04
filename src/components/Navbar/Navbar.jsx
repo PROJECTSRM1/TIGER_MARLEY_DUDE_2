@@ -46,7 +46,6 @@ const Navbar = () => {
     ],
   };
 
-  // 🧠 Filter products
   const filteredProducts =
     selectedCategory && productsData[selectedCategory]
       ? productsData[selectedCategory].filter((p) =>
@@ -54,7 +53,6 @@ const Navbar = () => {
       )
       : [];
 
-  // 🧩 Handle Login
   const handleLogin = (e) => {
     e.preventDefault();
     if (username && password) {
@@ -83,7 +81,6 @@ const Navbar = () => {
         <div className="icons">
           <Search className="icon" onClick={() => setIsSearchOpen(true)} />
 
-          {/* 👤 User Icon */}
           <div className="user-section">
             <User
               className="icon"
@@ -108,7 +105,6 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* 🔍 Search Panel */}
       {isSearchOpen && (
         <div className="search-overlay" onClick={() => setIsSearchOpen(false)}>
           <div
@@ -175,8 +171,6 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* 🔐 Login Modal */}
-      {/* 🔐 Login Drawer */}
       {isLoginOpen && (
         <div className="login-overlay" onClick={() => setIsLoginOpen(false)}>
           <div className="login-drawer" onClick={(e) => e.stopPropagation()}>
@@ -221,7 +215,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-      {/* 🍔 Menu Drawer */}
+
       {isMenuOpen && (
         <div className="menu-overlay" onClick={() => setIsMenuOpen(false)}>
           <div className="menu-drawer" onClick={(e) => e.stopPropagation()}>
@@ -236,7 +230,6 @@ const Navbar = () => {
               </a>
             </div>
 
-            {/* Tabs */}
             <div className="menu-tabs">
               {["Men", "Women", "Kids"].map((tab) => (
                 <button
@@ -249,27 +242,23 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Tab Content */}
             <div className="menu-content">
-              {/* 👕 MEN / WOMEN / KIDS TABS COMBINED */}
 
               {activeTab === "Men" && (
                 <>
-                  {/* 🧢 Men's Shirt Section */}
+      
                   <div className="menu-section">
                     <h4>
                       Men’s Shirt <span className="tag red">New</span>
                     </h4>
                   </div>
 
-                  {/* 🎮 Geek Section */}
                   <div className="menu-section">
                     <h4>
                       Geek <span className="tag yellow">Top Seller</span>
                     </h4>
                   </div>
 
-                  {/* 🎌 Shop by Anime */}
                   <div className="menu-section">
                     <h4>Shop by Anime</h4>
                     <div className="anime-icons">
@@ -295,7 +284,6 @@ const Navbar = () => {
                     </div>
                   </div>
 
-                  {/* ⚙️ Categories */}
                   <div className="menu-section">
                     <h4>
                       <span className="tag red">Motorsport</span>
@@ -314,7 +302,6 @@ const Navbar = () => {
                     <h4>Gift Cards</h4>
                   </div>
 
-                  {/* 📧 Contact Section */}
                   <div className="menu-section contact">
                     <h4>Get in Touch</h4>
                     <a href="mailto:care@dudeme.in" className="contact-email">
@@ -326,7 +313,6 @@ const Navbar = () => {
 
               {activeTab === "Women" && (
                 <>
-                  {/* 👩 WOMEN TAB */}
                   <div className="menu-section">
                     <div className="menu-item">
                       <i className="fas fa-dragon"></i>
@@ -371,7 +357,6 @@ const Navbar = () => {
                     </div>
                   </div>
 
-                  {/* 📧 Contact Section */}
                   <div className="menu-section contact">
                     <h4>Get in Touch</h4>
                     <a href="mailto:care@dudeme.in" className="contact-email">
@@ -383,14 +368,12 @@ const Navbar = () => {
 
               {activeTab === "Kids" && (
                 <>
-                  {/* 🧒 KIDS TAB */}
                   <div className="menu-section">
                     <h4>
                       Geek <span className="tag yellow">Top Seller</span>
                     </h4>
                   </div>
 
-                  {/* Age Groups */}
                   <div className="menu-section age-groups">
                     <div className="age-item">
                       <i className="fas fa-baby"></i>
@@ -410,7 +393,6 @@ const Navbar = () => {
                     </div>
                   </div>
 
-                  {/* Other Links */}
                   <div className="menu-section others">
                     <div className="menu-link">
                       <i className="fas fa-briefcase"></i>
@@ -421,8 +403,7 @@ const Navbar = () => {
                       <p>Gift Cards</p>
                     </div>
                   </div>
-
-                  {/* 📧 Contact Section */}
+                  
                   <div className="menu-section contact">
                     <h4>Get in Touch</h4>
                     <a href="mailto:care@dudeme.in" className="contact-email">
