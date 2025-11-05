@@ -2,6 +2,7 @@
   "name": "tigermarley3",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://RajashekarRM1.github.io/TIGER_MARLEY_DUDE_2",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@testing-library/dom": "^10.4.1",
@@ -20,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
