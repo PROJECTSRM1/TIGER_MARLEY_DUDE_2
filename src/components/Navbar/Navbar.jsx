@@ -2,12 +2,10 @@ import React, { useState, createContext, useContext } from "react";
 import { Search,User, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import "./Navbar.css";
 import { staticCartData } from "../../data/staticCartData";
-import Register from "./../Register/Register";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
-// import { User } from "react-feather";
 export const CartContext = createContext();
 
 const Navbar = () => {
@@ -38,7 +36,6 @@ const Navbar = () => {
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
 
   const location = useLocation();
-   // Detect if user should open login popup automatically
      useEffect(() => {
      const params = new URLSearchParams(location.search);
      const openLogin = params.get("openLogin");
@@ -88,11 +85,9 @@ const Navbar = () => {
   const handleLogin = (e) => {
   e.preventDefault();
 
-  // Clear previous errors
   setEmailError("");
   setPasswordError("");
 
-  // Validate email format
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
   if (!username) {
@@ -154,7 +149,6 @@ useEffect(() => {
   const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
   setWishlistItems(storedWishlist);
 
-  // Update when wishlist changes elsewhere
    window.addEventListener("storage", () => {
     const updatedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     setWishlistItems(updatedWishlist);
