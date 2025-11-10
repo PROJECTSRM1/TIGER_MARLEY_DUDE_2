@@ -1,9 +1,4 @@
-import HeroBanner from "../components/HeroBanner/HeroBanner";
-import Navbar from "../components/Navbar/Navbar";
-// import ProductCard from "../components/BannerImage";
-// import { products } from "../data/products";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import BannerImage from "../BannerImage/components/BannerImage";
+
 import FandomFusion from "../components/FandomFusion/FandomFusion";
 import ProductCategories from "../components/ProductCategories/ProductCategories";
 import LimitedEditionsImages from "../components/LimtedEditionImages/LimitedEditionImages";
@@ -20,8 +15,6 @@ import BannerImage from "../components/BannerImage/BannerImage";
 export default function Home() {
   return (
     <>
-      {/* <HeroBanner /> */}
-      {/* <Navbar/> */}
       <BannerImage/>
       <FandomFusion/>
       <ProductCategories/>
