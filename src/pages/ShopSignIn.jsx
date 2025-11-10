@@ -4,24 +4,18 @@ import "./ShopSignIn.css";
 
 
 const ShopSignIn = () => {
-  const [email, setEmail] = useState("");
+  
   const [showPopup, setShowPopup] = useState(false);
-  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [setShowConfirmPopup] = useState(false);
   const [username, setUsername] = useState("");
   const [emailError, setEmailError] = useState("");
   const [isEmailLogin, setIsEmailLogin] = useState(false);
   const navigate = useNavigate();
-  const handleContinue = () => {
-    if (email) {
-      setShowPopup(true);
-    }
-  };
-
   const closePopup = () => setShowPopup(false);
 
    const handleConfirm = (e) => {
     e.stopPropagation();
-    // When the "Confirm it's you" button is clicked, navigate to the home page with a welcome message.
+  
     console.log("Navigating to Home Page...")
     navigate('/home');
   };
@@ -71,7 +65,7 @@ const ShopSignIn = () => {
       {emailError && <p className="error-text">{emailError}</p>}
      <button
     className="continue-btn"
-    disabled={!isEmailLogin || !username.trim()} // ✅ only enabled when email login selected & email entered
+    disabled={!isEmailLogin || !username.trim()}
     style={{
     background: (!isEmailLogin || !username.trim()) ? "#bfbfbf" : "#000",
     cursor: (!isEmailLogin || !username.trim()) ? "not-allowed" : "pointer"
@@ -81,7 +75,6 @@ const ShopSignIn = () => {
     </button>
     </form>
 
-    {/* Popup Overlay */}
       {showPopup && (
        <div className="popup-overlay">
        <div className="popup-card">
@@ -98,8 +91,22 @@ const ShopSignIn = () => {
 
          <p className="popup-info">
           By continuing, Shop will share your name and email with Tiger Marley. <br />
-          See their <a href="#">terms</a> and <a href="#">privacy policy</a>.
+          See their{" "}
+         <button
+         onClick={() => alert("Terms page coming soon!")}
+         style={{ background: "none", border: "none", color: "#007bff", cursor: "pointer", textDecoration: "underline" }}
+          >
+         terms
+         </button>{" "}
+         and{" "}
+        <button
+         onClick={() => alert("Privacy policy coming soon!")}
+         style={{ background: "none", border: "none", color: "#007bff", cursor: "pointer", textDecoration: "underline" }}
+         >
+         privacy policy
+        </button>.
          </p>
+
         </div>
       </div>
       )}
