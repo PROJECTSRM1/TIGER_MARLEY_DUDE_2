@@ -1,13 +1,12 @@
-
-
 import React, { useState, createContext, useContext } from "react";
-import { Search, User, Heart, ShoppingCart, Menu, X } from "lucide-react";
+import { Search,User, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import "./Navbar.css";
 import { staticCartData } from "../../data/staticCartData";
-// import Register from "./../Register/Register";
+import Register from "./../Register/Register";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+
 // import { User } from "react-feather";
 export const CartContext = createContext();
 
@@ -19,7 +18,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const [loginError, setLoginError] = useState(""); 
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,6 +28,9 @@ const Navbar = () => {
   const [cartItems, setCartItems] = useState([]);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+
   const navigate = useNavigate();
   const goToRegister = () => {
     navigate("/register");
@@ -36,14 +38,14 @@ const Navbar = () => {
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
 
   const location = useLocation();
-  // Detect if user should open login popup automatically
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const openLogin = params.get("openLogin");
-    if (openLogin === "true") {
-      setIsLoginOpen(true);
-    }
-  }, [location]);
+   // Detect if user should open login popup automatically
+     useEffect(() => {
+     const params = new URLSearchParams(location.search);
+     const openLogin = params.get("openLogin");
+     if (openLogin === "true") {
+     setIsLoginOpen(true);
+     }
+     }, [location]);
 
 
   const productsData = {
@@ -84,75 +86,88 @@ const Navbar = () => {
       )
       : [];
 
-  // ✅ Handle login with validation + persistence
+ // ✅ Handle login with validation + persistence
   const handleLogin = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // Clear previous errors
-    setEmailError("");
-    setPasswordError("");
+  // Clear previous errors
+  setEmailError("");
+  setPasswordError("");
 
-    // Validate email format
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  // Validate email format
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-    if (!username) {
-      setEmailError("Please enter your email.");
-      return;
-    }
+  if (!username) {
+    setEmailError("Please enter your email.");
+    return;
+  }
 
-    if (!emailPattern.test(username)) {
-      setEmailError("Please enter a valid email address.");
-      return;
-    }
+  if (!emailPattern.test(username)) {
+    setEmailError("Please enter a valid email address.");
+    return;
+  }
 
 
-    if (!password) {
-      setPasswordError("Please enter password.");
-      return;
-    }
+  if (!password) {
+    setPasswordError("Please enter password.");
+    return;
+  }
     localStorage.setItem("userEmail", username);
     localStorage.setItem("userPassword", password);
-
+    
     alert("Registration successful! You can now log in.");
     setUsername("");
     setPassword("");
+    
+     const savedEmail = localStorage.getItem("userEmail");
+      const savedPassword = localStorage.getItem("userPassword");
 
-    const savedEmail = localStorage.getItem("userEmail");
-    const savedPassword = localStorage.getItem("userPassword");
+      if (username === savedEmail && password === savedPassword) {
+        setIsLoggedIn(true);
+        setIsLoginOpen(false);
 
-    if (username === savedEmail && password === savedPassword) {
-      setIsLoggedIn(true);
-      setIsLoginOpen(false);
+    // ✅ Save login info in localStorage
+        localStorage.setItem("isLoggedIn", "true");
+         localStorage.setItem("username", username);
 
-      // ✅ Save login info in localStorage
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("username", username);
-
-      navigate("/shop-sign-in");
-    } else {
-      setPasswordError("Incorrect email or password.");
-    }
+    navigate("/shop-sign-in");
+  } else {
+    setPasswordError("Incorrect email or password.");
+  }
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUsername("");
-    setPassword("");
+// ✅ Handle logout and clear localStorage
+const handleLogout = () => {
+  setIsLoggedIn(false);
+  setUsername("");
+  setPassword("");
 
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("username");
-  };
+  // ✅ Remove user data
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("username");
+};
 
+// ✅ Restore login state on component mount
+useEffect(() => {
+  const savedLogin = localStorage.getItem("isLoggedIn");
+  const savedUsername = localStorage.getItem("username");
+
+  if (savedLogin === "true" && savedUsername) {
+    setIsLoggedIn(true);
+    setUsername(savedUsername);
+  }
+}, []);
   useEffect(() => {
-    const savedLogin = localStorage.getItem("isLoggedIn");
-    const savedUsername = localStorage.getItem("username");
+  const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  setWishlistItems(storedWishlist);
 
-    if (savedLogin === "true" && savedUsername) {
-      setIsLoggedIn(true);
-      setUsername(savedUsername);
-    }
-  }, []);
-
+  // Update when wishlist changes elsewhere
+   window.addEventListener("storage", () => {
+    const updatedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlistItems(updatedWishlist);
+    });
+   }, []);
+  
 
   const removeFromCart = (id) => {
     setCartItems(cartItems.filter((item) => item.id !== id));
@@ -181,10 +196,17 @@ const Navbar = () => {
             {isLoggedIn && <span className="username">Hi,<strong>{username}</strong></span>}
           </div>
 
-          <div className="icon-badge">
-            <Heart className="icon" />
-            <span className="badge">0</span>
-          </div>
+          <div
+          className="icon-badge"
+          onClick={() => setIsWishlistOpen(true)}
+          style={{ cursor: "pointer" }}
+           >
+         <Heart className="icon" />
+         {wishlistItems.length > 0 && (
+        <span className="badge">{wishlistItems.length}</span>
+         )}
+         </div>
+
 
           <div className="icon-badge" onClick={() => setIsCartOpen(true)}>
             <ShoppingCart className="icon" />
@@ -196,32 +218,70 @@ const Navbar = () => {
       </header>
 
       {isCartOpen && (
-        <div className="cart-overlay" onClick={() => setIsCartOpen(false)}>
-          <div className="cart-drawer" onClick={(e) => e.stopPropagation()}>
-            <div className="cart-header">
-              <h3>Your Cart</h3>
-              <X className="close-icon" onClick={() => setIsCartOpen(false)} />
-            </div>
+      <div className="cart-overlay" onClick={() => setIsCartOpen(false)}>
+      <div className="cart-drawer" onClick={(e) => e.stopPropagation()}>
+      <div className="cart-header">
+         <h3>Your Cart</h3>
+        <X className="close-icon" onClick={() => setIsCartOpen(false)} />
+      </div>
 
-            {staticCartData.length === 0 ? (
-              <p className="empty-cart">Your cart is empty.</p>
-            ) : (
-              <div className="cart-items">
-                {staticCartData.map((item) => (
-                  <div className="cart-item" key={item.id}>
-                    <img src={item.image} alt={item.title} />
-                    <div>
-                      <h4>{item.title}</h4>
-                      <p>₹{item.price}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+      {staticCartData.length === 0 ? (
+        <p className="empty-cart">Your cart is empty.</p>
+      ) : (
+        <div className="cart-items">
+          {staticCartData.map((item) => (
+            <div className="cart-item" key={item.id}>
+              <img src={item.image} alt={item.title} />
+              <div>
+                <h4>{item.title}</h4>
+                <p>₹{item.price}</p>
+               </div>
+             </div>
+            ))}
+           </div>
+          )}
+         </div>
         </div>
-      )}
+       )}
 
+         {isWishlistOpen && (
+  <div className="wishlist-overlay" onClick={() => setIsWishlistOpen(false)}>
+    <div className="wishlist-drawer" onClick={(e) => e.stopPropagation()}>
+      <div className="wishlist-header">
+        <h3>My Wishlist ❤️</h3>
+        <X className="close-icon" onClick={() => setIsWishlistOpen(false)} />
+      </div>
+
+      {wishlistItems.length === 0 ? (
+        <p className="empty-wishlist">Your wishlist is empty.</p>
+      ) : (
+        <div className="wishlist-items">
+          {wishlistItems.map((item, index) => (
+            <div key={index} className="wishlist-item">
+              <img src={item.image} alt={item.name} />
+              <div>
+                <h4>{item.name}</h4>
+                <p>₹{item.price}</p>
+                <button
+                  className="remove-btn"
+                  onClick={() => {
+                    const updated = wishlistItems.filter(
+                      (w) => w.name !== item.name
+                    );
+                    setWishlistItems(updated);
+                    localStorage.setItem("wishlist", JSON.stringify(updated));
+                  }}
+                >
+                  Remove
+                  </button>
+               </div>
+            </div>
+             ))}
+           </div>
+           )}
+         </div>
+       </div>
+      )}
 
 
       {isSearchOpen && (
@@ -242,13 +302,13 @@ const Navbar = () => {
                 setSelectedCategory(e.target.value);
                 setQuery("");
               }}
-            >
+              >
               <option value="">Select Category</option>
               <option value="Combo">Combo</option>
               <option value="T-Shirts">T-Shirts</option>
               <option value="Hoodies">Hoodies</option>
               <option value="Oversized">Oversized</option>
-            </select>
+              </select>
 
             {selectedCategory && (
               <div className="search-input-box">
@@ -291,9 +351,9 @@ const Navbar = () => {
       )}
 
       {isLoginOpen && (
-  <div className="login-overlay" onClick={() => setIsLoginOpen(false)}>
-    <div className="login-drawer" onClick={(e) => e.stopPropagation()}>
-      <div className="login-header">
+        <div className="login-overlay" onClick={() => setIsLoginOpen(false)}>
+        <div className="login-drawer" onClick={(e) => e.stopPropagation()}>
+        <div className="login-header">
         <h3>
           {isForgotPasswordMode
             ? "Reset Your Password"
@@ -302,11 +362,14 @@ const Navbar = () => {
             : "Sign In"}
         </h3>
         <X className="close-icon" onClick={() => setIsLoginOpen(false)} />
-      </div>
+       </div>
 
-      {!isRegisterMode && !isForgotPasswordMode && (
-        <form className="login-form" onSubmit={handleLogin}>
-          <label>Email <span>*</span></label>
+         {/* ✅ LOGIN FORM */}
+         {!isRegisterMode && !isForgotPasswordMode && (
+         <form className="login-form" onSubmit={handleLogin}>
+          <label>
+            Email <span>*</span>
+          </label>
           <input
             type="email"
             placeholder="Enter your email"
@@ -314,8 +377,11 @@ const Navbar = () => {
             onChange={(e) => setUsername(e.target.value)}
             className="input-field"
           />
+          {emailError && <p className="error-message">{emailError}</p>}
 
-          <label>Password <span>*</span></label>
+          <label>
+            Password <span>*</span>
+          </label>
           <input
             type="password"
             placeholder="Enter your password"
@@ -323,56 +389,87 @@ const Navbar = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="input-field"
           />
+          {passwordError && <p className="error-message">{passwordError}</p>}
 
-          <p className="forgot-password-link" onClick={() => setIsForgotPasswordMode(true)}>
+          <p
+            className="forgot-password-link"
+            onClick={() => setIsForgotPasswordMode(true)}
+          >
             Forgot your password?
           </p>
 
-          <button type="submit" className="login-btn">Sign In</button>
+          <button type="submit" className="login-btn">
+            Sign In
+          </button>
 
           <p className="register-prompt">
             New customer?{" "}
-            <span className="register-link" onClick={() => setIsRegisterMode(true)}>
+            <span
+              className="register-link"
+              onClick={() => setIsRegisterMode(true)}
+            >
               Create an account
             </span>
           </p>
         </form>
-      )}
-
+         )}
+  </div>
+      {/* ✅ REGISTER FORM */}
       {isRegisterMode && !isForgotPasswordMode && (
         <form
-          className="login-form"
+          className="register-form"
           onSubmit={(e) => {
             e.preventDefault();
             alert("Account created successfully!");
             setIsRegisterMode(false);
           }}
         >
-          <label>First Name <span>*</span></label>
+          
+           <h3>Create Account </h3>
+
+          <label>
+            First Name <span>*</span>
+          </label>
           <input type="text" placeholder="Enter your first name" className="input-field" required />
 
-          <label>Last Name <span>*</span></label>
+          <label>
+            Last Name <span>*</span>
+          </label>
           <input type="text" placeholder="Enter your last name" className="input-field" required />
 
-          <label>Email <span>*</span></label>
+          <label>
+            Email <span>*</span>
+          </label>
           <input type="email" placeholder="Enter your email" className="input-field" required />
 
-          <label>Password <span>*</span></label>
-          <input type="password" placeholder="Create a password" className="input-field" required />
+          <label>
+            Password <span>*</span>
+          </label>
+          <input
+            type="password"
+            placeholder="Create a password"
+            className="input-field"
+            required
+          />
 
-          <button type="submit" className="login-btn">Create Account</button>
+          <button type="submit" className="login-btn">
+            Create Account
+          </button>
 
           <p className="register-prompt">
             Already have an account?{" "}
-            <span className="register-link" onClick={() => setIsRegisterMode(false)}>
+            <span
+              className="register-link"
+              onClick={() => setIsRegisterMode(false)}
+            >
               Sign In
             </span>
           </p>
         </form>
       )}
 
-      {/* ✅ FORGOT PASSWORD FORM */}
-      {isForgotPasswordMode && (
+       {/* ✅ FORGOT PASSWORD FORM */}
+       {isForgotPasswordMode && (
         <form
           className="login-form"
           onSubmit={(e) => {
@@ -380,13 +477,14 @@ const Navbar = () => {
             alert("Password reset link sent to your email!");
             setIsForgotPasswordMode(false);
           }}
-        >
+          >
           <p className="forgot-password-info">
-            Lost your password? Please enter your email address.
-            You will receive a link to create a new password.
-          </p>
+            Lost your password? Please enter your email address. You will receive a link to create a new password via email.
+           </p>
 
-          <label>Email address <span>*</span></label>
+          <label>
+            Email address <span>*</span>
+          </label>
           <input
             type="email"
             placeholder="Enter your email address"
@@ -394,7 +492,10 @@ const Navbar = () => {
             required
           />
 
-          <button type="submit" className="login-btn">Reset Password</button>
+          <button type="submit" className="login-btn">
+            Reset Password
+          </button>
+
           <button
             type="button"
             className="cancel-btn"
@@ -404,10 +505,8 @@ const Navbar = () => {
           </button>
         </form>
       )}
-    </div>
-  </div>
+    </div> 
 )}
-
       {isMenuOpen && (
         <div className="menu-overlay" onClick={() => setIsMenuOpen(false)}>
           <div className="menu-drawer" onClick={(e) => e.stopPropagation()}>
@@ -418,7 +517,7 @@ const Navbar = () => {
 
             <div className="menu-login">
               <a href="/" onClick={(e) => { e.preventDefault(); setIsLoginOpen(true); }}>
-                <User style={{ marginRight: "8px" }} /> Login / Register
+               <User style={{ marginRight: "8px" }} /> Login / Register
               </a>
             </div>
 
@@ -438,7 +537,7 @@ const Navbar = () => {
 
               {activeTab === "Men" && (
                 <>
-
+      
                   <div className="menu-section">
                     <h4>
                       Men’s Shirt <span className="tag red">New</span>
@@ -457,17 +556,17 @@ const Navbar = () => {
                       {[
                         "All",
                         "Naruto",
-                        "Piece",
+                        "1Piece",
                         "Demon",
                         "Titan",
-                        "Justu",
+                        "Jujutsu",
                         "Tokyo",
                         "Dragon",
                         "Pokemon",
                       ].map((item) => (
                         <div key={item} className="anime-item">
                           <img
-                            src={require(`../../assets/men_images/${item.toLowerCase()}.jpg`)}
+                            src={`/assets/icons/${item.toLowerCase()}.jpg`}
                             alt={item}
                           />
                           <p>{item}</p>
@@ -595,7 +694,7 @@ const Navbar = () => {
                       <p>Gift Cards</p>
                     </div>
                   </div>
-
+                  
                   <div className="menu-section contact">
                     <h4>Get in Touch</h4>
                     <a href="mailto:care@dudeme.in" className="contact-email">

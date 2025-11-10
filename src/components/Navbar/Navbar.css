@@ -167,6 +167,94 @@
   height: 18px;
   color: #555;
 }
+/* === Wishlist Drawer === */
+.wishlist-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 9999;
+}
+
+.wishlist-drawer {
+  width: 400px;
+  height: 100%;
+  background: #fff;
+  padding: 20px;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.wishlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.wishlist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.wishlist-item {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.wishlist-item img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.wishlist-item h4 {
+  font-size: 15px;
+  margin: 0;
+}
+
+.wishlist-item p {
+  font-size: 14px;
+  color: #333;
+}
+
+.remove-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 13px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #e03a3a;
+}
+
+.empty-wishlist {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  margin-top: 20px;
+}
+
 
 /* ======================
    📦 Product Results
@@ -241,42 +329,41 @@
 /* ======================
    🔐 Login Drawer (Right Side)
    ====================== */
-/* ===============================
-   LOGIN OVERLAY
-=================================*/
+
+/* Overlay */
+/* Overlay behind the drawer */
 .login-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: flex-end; /* align drawer to right */
-  z-index: 2000;
-  animation: fadeIn 0.3s ease;
+  justify-content: flex-end;
+  z-index: 1000;
 }
 
-/* ===============================
-   LOGIN DRAWER (Right Side)
-=================================*/
+/* Drawer panel */
 .login-drawer {
   background: #fff;
-  width: 420px;
-  height: 100vh;
-  border-radius: 0;
-  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.2);
-  padding: 35px 30px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  width: 380px;
+  height: 100%;
+  padding: 30px 25px;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
-  animation: slideInRight 0.35s ease forwards;
+  animation: slideIn 0.3s ease-out;
 }
 
-/* ===============================
-   HEADER
-=================================*/
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 .login-header {
   display: flex;
   justify-content: space-between;
@@ -285,158 +372,269 @@
 }
 
 .login-header h3 {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
   color: #222;
-}
-
-.close-icon {
-  cursor: pointer;
-  font-size: 22px;
-  color: #666;
-  transition: 0.2s;
-}
-
-.close-icon:hover {
-  color: #ff4d4f;
-  transform: rotate(90deg);
-}
-
-/* ===============================
-   FORM STYLING
-=================================*/
-.login-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-form label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.login-form span {
-  color: red;
 }
 
 .input-field {
   width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 18px;
-  border-radius: 10px;
-  border: 1.8px solid #ddd;
-  font-size: 15px;
-  transition: all 0.3s ease;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  transition: 0.3s;
 }
 
 .input-field:focus {
-  border-color: #5b3df5;
-  box-shadow: 0 0 0 4px rgba(91, 61, 245, 0.1);
+  border-color: #007bff;
   outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-/* ===============================
-   BUTTONS
-=================================*/
 .login-btn {
   width: 100%;
+  background-color: #007bff;
+  color: white;
   padding: 12px;
-  background: linear-gradient(90deg, #5b3df5, #7b5df7);
   border: none;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 5px;
-  transition: all 0.3s ease;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: 0.3s;
 }
 
 .login-btn:hover {
-  background: linear-gradient(90deg, #4a31cc, #6840e0);
-  transform: translateY(-2px);
+  background-color: #0056b3;
 }
 
-.cancel-btn {
-  background: #f5f5f5;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  color: #555;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: -5px;
+  margin-bottom: 10px;
 }
 
-.cancel-btn:hover {
-  background: #e1e1e1;
+.forgot-password {
+  display: block;
+  text-align: right;
+  color: #007bff;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-decoration: none;
 }
 
-/* ===============================
-   TEXT LINKS
-=================================*/
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
 .register-prompt {
   text-align: center;
+  margin-top: 15px;
   font-size: 14px;
-  color: #555;
-  margin-top: 20px;
 }
 
 .register-link {
-  color: #5b3df5;
-  font-weight: 600;
+  color: #007bff;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .register-link:hover {
   text-decoration: underline;
 }
 
-.forgot-password-link {
-  text-align: right;
-  font-size: 13px;
-  color: #5b3df5;
-  cursor: pointer;
-  margin-top: -5px;
-  margin-bottom: 15px;
+
+/* Drawer Design */
+.login-drawer {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 400px;
+  max-width: 90%;
+  animation: slideIn 0.3s ease-out;
 }
 
-.forgot-password-link:hover {
+/* Header Style */
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.login-header h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-icon:hover {
+  color: #ff4d4f;
+}
+
+/* Form Style */
+.login-form label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+  font-weight: 500;
+  display: block;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #5b3df5;
+}
+
+.forgot-password {
+  display: block;
+  text-align: right;
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: #5b3df5;
+}
+  /* Error messages */
+   .error-message {
+   color: red;
+   font-size: 14px;
+   margin-top: 5px;
+   text-align: left;
+   }
+
+/* Buttons */
+  .login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #5b3df5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+   }
+
+.login-btn:hover {
+  background-color: #4a31cc;
+}
+
+
+/* New Account Link */
+/* src/components/LoginForm.css (or wherever you're defining your styles) */
+
+/* Styling the container around the form */
+.register-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading style */
+.register-form h3 {
+  
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Label styling */
+.register-form label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+/* Input fields styling */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+/* Add focus effect for input fields */
+.input-field:focus {
+  border-color: #007bff;
+}
+
+/* Button styling */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Change button color on hover */
+.login-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Style the "Already have an account" prompt */
+.register-prompt {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+/* Style the "Sign In" link */
+.register-link {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 600;
   text-decoration: underline;
 }
 
-/* ===============================
-   ERROR & INFO
-=================================*/
-.error-message {
-  color: red;
-  font-size: 13px;
-  margin-top: -12px;
-  margin-bottom: 10px;
-}
-
-.forgot-password-info {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 15px;
-  line-height: 1.5;
-}
-
-/* ===============================
-   ANIMATIONS
-=================================*/
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
+/* Add responsiveness for smaller screens */
+@media (max-width: 200px) {
+  .register-form {
+    padding: 20px;
+    width: 90%;
   }
 }
 
+
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -446,6 +644,15 @@
   }
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+ 
 
 /* ======================
    🍔 MENU DRAWER STYLES

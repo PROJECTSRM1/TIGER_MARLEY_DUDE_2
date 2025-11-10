@@ -73,5 +73,4 @@ const Login = ({ onClose, onLogin }) => {
     </div>
   );
 };
-
 export default Login;
