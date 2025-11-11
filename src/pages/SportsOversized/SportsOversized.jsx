@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { sportOversized } from "../../data/products";
+import "./SportOversized.css";
 
 const SportOversized = () => {
   const navigate = useNavigate();
+  const [sortOption, setSortOption] = useState("");
 
-  // ✅ Normalize product data before navigating
+  
   const handleNavigate = (product) => {
     const normalizedProduct = {
       ...product,
@@ -17,66 +19,78 @@ const SportOversized = () => {
     navigate(`/product/${product.id}`, { state: normalizedProduct });
   };
 
-  return (
-    <div style={{ textAlign: "center", padding: "40px" }}>
-      <h1>Sport Oversized Tees ⚽</h1>
-      <p>Stay sporty with our oversized sports collection!</p>
+ 
+  const sortedProducts = [...sportOversized].sort((a, b) => {
+    switch (sortOption) {
+      case "low-high":
+        return a.price - b.price;
+      case "high-low":
+        return b.price - a.price;
+      case "a-z":
+        return a.title.localeCompare(b.title);
+      case "z-a":
+        return b.title.localeCompare(a.title);
+      default:
+        return 0;
+    }
+  });
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "30px",
-          marginTop: "40px",
-        }}
-      >
-        {sportOversized.map((product) => (
+  return (
+    <div className="sport-container">
+     
+      <div className="category-row">
+        <div
+          className="category-card"
+          onClick={() => navigate("/sport/oversized")}
+        >
+          <img src="/assets/Anime_-_Oversized.webp" alt="Sport Oversized" />
+          <h3>Oversized</h3>
+        </div>
+
+        <div
+          className="category-card"
+          onClick={() => navigate("/sport/hoodies")}
+        >
+          <img src="/assets/Anime_-_Hoodies.webp" alt="Sport Hoodies" />
+          <h3>Hoodies</h3>
+        </div>
+
+        <div
+          className="category-card"
+          onClick={() => navigate("/sport/half")}
+        >
+          <img src="/assets/Anime_Half.webp" alt="Sport Half Sleeve" />
+          <h3>Half Sleeve</h3>
+        </div>
+      </div>
+
+      
+      <div className="sort-bar">
+        <label htmlFor="sort">Sort by:</label>
+        <select
+          id="sort"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="">Default</option>
+          <option value="low-high">Price: Low to High</option>
+          <option value="high-low">Price: High to Low</option>
+          <option value="a-z">Name: A–Z</option>
+          <option value="z-a">Name: Z–A</option>
+        </select>
+      </div>
+
+      
+      <div className="product-grid">
+        {sortedProducts.map((product) => (
           <div
             key={product.id}
-            onClick={() => handleNavigate(product)} // ✅ Navigate on card click
-            style={{
-              background: "#fff",
-              padding: "20px",
-              borderRadius: "12px",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-              width: "220px",
-              textAlign: "center",
-              cursor: "pointer",
-              transition: "transform 0.2s ease-in-out",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "scale(1.03)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.transform = "scale(1)")
-            }
+            className="product-card"
+            onClick={() => handleNavigate(product)}
           >
-            <img
-              src={product.image}
-              alt={product.title}
-              style={{ width: "100%", borderRadius: "10px" }}
-            />
-            <h3 style={{ margin: "15px 0 5px" }}>{product.title}</h3>
-            <p style={{ fontWeight: "bold" }}>₹{product.price}</p>
-
-            <button
-              onClick={(e) => {
-                e.stopPropagation(); // prevents card click
-                handleNavigate(product); // ✅ Navigate on button click
-              }}
-              style={{
-                marginTop: "10px",
-                padding: "10px 20px",
-                border: "none",
-                borderRadius: "6px",
-                backgroundColor: "#af3828",
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              Add to Cart
-            </button>
+            <img src={product.image} alt={product.title} />
+            <h3>{product.title}</h3>
+            <p>₹{product.price}</p>
           </div>
         ))}
       </div>

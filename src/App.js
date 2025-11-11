@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import GeekTshirts from "./pages/GeekTshirts/GeekTshirts";
 import GeekHoodies from "./pages/GeekHoodies/GeekHoodies";
 import AnimeHoodies from "./pages/AnimeHoodies/AnimeHoodies";
-import AnimeOversized from "./pages/GeekOversized/GeekOversized";
+import AnimeOversized from "./pages/GeekOversized/AnimeOversized";
 import SportHoodies from "./pages/SportHoodies/SportHoodies";
 import SportOversized from "./pages/SportsOversized/SportsOversized";
 import Football from "./components/football/football";
@@ -45,9 +45,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/geek/tshirts" element={<GeekTshirts />} />
         <Route path="/geek/hoodies" element={<GeekHoodies />} />
-        <Route path="/anime/oversized" element={<AnimeOversized />} />
+       <Route path ="/anime/oversized" element={<AnimeOversized />} />
         <Route path="/anime/hoodies" element={<AnimeHoodies />} />
-        <Route path="/anime/hoodie" element={<AnimeHoodies />} />
+       
         <Route path="/sport/oversized" element={<SportOversized />} />
         <Route path="/sport/hoodies" element={<SportHoodies />} />
         <Route path="football/dresses" element={<Football />} />

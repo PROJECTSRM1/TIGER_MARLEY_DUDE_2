@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { animeHoodies } from "../../data/products";
-import "./AnimeHoodies.css";
+import { animeOversized } from "../../data/products";
+import "./AnimeOversized.css";
 
-const AnimeHoodies = () => {
+const AnimeOversized = () => {
   const navigate = useNavigate();
   const [sortOption, setSortOption] = useState("");
 
@@ -18,31 +18,45 @@ const AnimeHoodies = () => {
     navigate(`/product/${product.id}`, { state: normalizedProduct });
   };
 
- 
-  const sortedProducts = [...animeHoodies].sort((a, b) => {
+  const sortedProducts = [...animeOversized].sort((a, b) => {
     switch (sortOption) {
+      case "az":
+        return a.title.localeCompare(b.title);
+      case "za":
+        return b.title.localeCompare(a.title);
       case "low-high":
         return a.price - b.price;
       case "high-low":
         return b.price - a.price;
-      case "a-z":
-        return a.title.localeCompare(b.title);
-      case "z-a":
-        return b.title.localeCompare(a.title);
+      case "newest":
+        return b.id - a.id;
+      case "best":
+        return b.sales - a.sales;
       default:
         return 0;
     }
   });
 
   return (
-    <div className="hoodie-container">
+    <div className="anime-page">
       
-      <div className="category-row">
+      <div className="banner">
+        <video
+          src="/Videos/anime-banner.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+      </div>
+
+     
+      <div className="category-section">
         <div
           className="category-card"
           onClick={() => navigate("/anime/oversized")}
         >
-          <img src="/assets/Anime_-_Oversized.webp" alt="Oversized" />
+          <img src="/assets/Anime_-_Oversized.webp" alt="Anime Oversized" />
           <h3>Oversized</h3>
         </div>
 
@@ -50,29 +64,32 @@ const AnimeHoodies = () => {
           className="category-card"
           onClick={() => navigate("/anime/hoodies")}
         >
-          <img src="/assets/Anime_-_Hoodies.webp" alt="Hoodies" />
+          <img src="/assets/Anime_-_Hoodies.webp" alt="Anime Hoodies" />
           <h3>Hoodies</h3>
         </div>
 
-        <div className="category-card" onClick={() => navigate("/anime/half")}>
-          <img src="/assets/Anime_Half.webp" alt="Half Sleeve" />
+        <div
+          className="category-card"
+          onClick={() => navigate("/anime/half")}
+        >
+          <img src="/assets/Anime_Half.webp" alt="Anime Half Sleeve" />
           <h3>Half Sleeve</h3>
         </div>
       </div>
 
       
       <div className="sort-bar">
-        <label htmlFor="sort">Sort by:</label>
         <select
-          id="sort"
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
         >
-          <option value="">Default</option>
-          <option value="low-high">Price: Low to High</option>
-          <option value="high-low">Price: High to Low</option>
-          <option value="a-z">Name: A–Z</option>
-          <option value="z-a">Name: Z–A</option>
+          <option value="">Sort By</option>
+          <option value="az">Alphabetical (A → Z)</option>
+          <option value="za">Alphabetical (Z → A)</option>
+          <option value="low-high">Price: Low → High</option>
+          <option value="high-low">Price: High → Low</option>
+          <option value="best">Best Selling</option>
+          <option value="newest">Newest</option>
         </select>
       </div>
 
@@ -94,4 +111,4 @@ const AnimeHoodies = () => {
   );
 };
 
-export default AnimeHoodies;
+export default AnimeOversized;
